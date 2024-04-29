@@ -10,5 +10,9 @@
 
 
     <a href="/"><h1>Logo</h1></a>
+    <form action="{% url 'home' %}" method="POST">
+        {% csrf_token %}
+        <input type="text" name="q" placeholder="Search..">
+    </form>
 </body>
 </html>
