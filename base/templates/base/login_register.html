@@ -7,17 +7,32 @@
     <title>Document</title>
 </head>
 <body>
-    {%extends 'main.html'%}
-    {%block content%}
-    <form action="" method="POST">
-        {%csrf_token%}
+    {% extends 'main.html' %}
+    {% block content %}
+    {% if page == 'login' %}
+    <div>
+     <form action="" method="POST">
+        {% csrf_token %}
         username:
         <input type="username" name="username" id="" placeholder="Enter username">
         Password:
         <input type="password" name="password" id="" placeholder="Enter password">
-        <input type="Submit">
-    </form>
-
-    {%endblock%}
+        <input type="submit">
+     </form>
+     <p>Have not signed up?</p>
+     <a href="{% url 'register' %}">Sign up</a>
+    </div>
+    {% else %}
+    <div>
+        <form action="" method="POST">
+           {% csrf_token %}
+           {{form.as_p}}
+           <input type="submit" value="Register">
+        </form>
+        <p>Already signed up?</p>
+        <a href="{% url 'login' %}">Login</a>
+    </div>
+    {% endif %}
+    {% endblock %}
 </body>
 </html>
