@@ -30,7 +30,7 @@ def loginPage(request):
             login(request,user)
             return redirect('home')
         else:
-            messages.error(request,'username or password does not exist')
+            messages.error(request,'Username or Password does not exist!!')
     return render(request,'base/login_register.html',context)
 
 def logoutUser(request):
@@ -49,7 +49,7 @@ def registerPage(request):
             login(request,user)
             return redirect('home')
         else:
-            messages.error(request,'An error occured during registration')
+            messages.error(request,'An error occured during registration!!')
    
     return render(request,'base/login_register.html',context)
 
