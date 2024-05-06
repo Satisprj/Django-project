@@ -67,8 +67,8 @@ def home(request):
 
 def room(request,pk):
     room=Room.objects.get(id=pk)
-    
-    contex={'room':room}
+    room_messages=room.message_set.all()
+    contex={'room':room,'room_messages':room_messages}
     return render(request,'base/room.html',contex)
 @login_required(login_url='login')
 def createRoom(request):
