@@ -67,7 +67,9 @@ def home(request):
 
 def room(request,pk):
     room=Room.objects.get(id=pk)
+
     room_messages=room.message_set.all().order_by('-created')
+    participants=room.participant.all()
     if request.method=='POST':
         message=Message.objects.create(
             user=request.user,
@@ -75,7 +77,7 @@ def room(request,pk):
             body=request.POST.get('body')
         )
         return redirect ('room',pk=room.id)
-    contex={'room':room,'room_messages':room_messages}
+    contex={'room':room,'room_messages':room_messages,'participants':participants}
     return render(request,'base/room.html',contex)
 @login_required(login_url='login')
 def createRoom(request):
