@@ -76,6 +76,7 @@ def room(request,pk):
             room=room,
             body=request.POST.get('body')
         )
+        room.participant.add(request.user)
         return redirect ('room',pk=room.id)
     contex={'room':room,'room_messages':room_messages,'participants':participants}
     return render(request,'base/room.html',contex)
@@ -113,3 +114,13 @@ def deleteRoom(request,pk):
         room.delete()
         return redirect('home')
     return render(request,'base/delete.html',{'obj':room})
+
+@login_required(login_url='login')
+def deleteMessage(request,pk):
+    messages=Message.objects.get(id=pk)
+    if request.user!=messages.user:
+        return HttpResponse("why are you here?")
+    if request.method=='POST':
+        messages.delete()
+        return redirect('home')
+    return render(request,'base/delete.html',{'obj':messages})
