@@ -60,7 +60,7 @@ def home(request):
     Q(description__icontains=q))
     topic=Topic.objects.all() 
     room_count=rooms.count()
-    room_message=Message.objects.all()
+    room_message=Message.objects.filter(Q(room__topic__name__icontains=q))
     contex={'rooms':rooms,'topic':topic,'room_count':room_count,'room_message':room_message}
 
     return render(request,'base/home.html',contex)
