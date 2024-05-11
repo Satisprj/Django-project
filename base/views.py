@@ -40,7 +40,9 @@ def logoutUser(request):
 def userProfile(request,pk):
     user=User.objects.get(id=pk)
     rooms=user.room_set.all()
-    context={'user':user,'rooms':rooms}
+    room_message=user.message_set.all()
+    topic=Topic.objects.all()
+    context={'user':user,'rooms':rooms,'room_message':room_message,'topic':topic}
     return render(request,'base/profile.html',context)
 def registerPage(request):
     form=UserCreationForm()
