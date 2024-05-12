@@ -65,10 +65,10 @@ def home(request):
     rooms=Room.objects.filter(Q(topic__name__icontains=q)|
     Q(name__icontains=q)|
     Q(description__icontains=q))
-    topic=Topic.objects.all() 
+    topics=Topic.objects.all() 
     room_count=rooms.count()
     room_message=Message.objects.filter(Q(room__topic__name__icontains=q))
-    contex={'rooms':rooms,'topic':topic,'room_count':room_count,'room_message':room_message}
+    contex={'rooms':rooms,'topics':topics,'room_count':room_count,'room_message':room_message}
 
     return render(request,'base/home.html',contex)
 
@@ -133,3 +133,27 @@ def deleteMessage(request,pk):
         messages.delete()
         return redirect('home')
     return render(request,'base/delete.html',{'obj':messages})
+
+@login_required(login_url='login')
+def updateUser(request):
+    user = request.user
+    form = UserForm(instance=user)
+
+    if request.method == 'POST':
+        form = UserForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('user-profile', pk=user.id)
+
+    return render(request, 'base/update-user.html', {'form': form})
+
+
+def topicsPage(request):
+    q = request.GET.get('q') if request.GET.get('q') != None else ''
+    topics = Topic.objects.filter(name__icontains=q)
+    return render(request, 'base/topics.html', {'topics': topics})
+
+
+def activityPage(request):
+    room_messages = Message.objects.all()
+    return render(request, 'base/activity.html', {'room_messages': room_messages})
