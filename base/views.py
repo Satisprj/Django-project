@@ -11,7 +11,6 @@ from django.contrib.auth import authenticate,login,logout
 
 # Create your views here.
 
-
 def loginPage(request):
     page='login'
     context={'page':page}
