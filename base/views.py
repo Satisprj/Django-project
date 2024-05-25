@@ -4,9 +4,8 @@ from django.http import HttpResponse
 from django.db.models import Q
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from .models import Room,Topic,Message
+from .models import Room,Topic,Message,User
 from .forms import RoomForm,UserForm
-from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 
 # Create your views here.
