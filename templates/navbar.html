@@ -3,8 +3,7 @@
     <div class="container">
         <a href="{% url 'home' %}" class="header__logo">
             <img src="{% static 'images/logo.svg' %}" />
-            <h1>StudyWithSatish
-            </h1>
+            <h1>StudyWithSatish</h1>
         </a>
         <form class="header__search" method="GET" action="{% url 'home' %}">
             <label>
@@ -36,6 +35,7 @@
                     </svg>
                 </button>
             </div>
+            
             {% else %}
 
             <!-- Not Logged In -->
@@ -44,9 +44,9 @@
                 <p>Login</p>
             </a>
             {% endif %}
-
             <div class="dropdown-menu">
-                <a href="{% url 'update-user' %}" class="dropdown-link"><svg version="1.1"
+                <a href="{% url 'update-user' %}" class="dropdown-link">
+                    <svg version="1.1"
                         xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
                         <title>tools</title>
                         <path
@@ -69,12 +69,3 @@
         </nav>
     </div>
 </header>
-
-
-
-<!-- {% if request.user.is_authenticated %}
-<p>Hello {{request.user}}</p>
-<a href="{% url 'logout' %}">Logout</a>
-{% else %}
-<a href="{% url 'login' %}">Login</a>
-{% endif %} -->
